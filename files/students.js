@@ -14,6 +14,13 @@ student = {
     "totalSpentInBooks": 0.00
 }
 
+room = {
+    "roomName": "onyx room",
+    "roomColor": "Red",
+    "Room Number": 2,
+    "Price": 70000.00
+}
+
 student2 = {
     "firstName": "omatsola",
     "lastName": "sobotie",

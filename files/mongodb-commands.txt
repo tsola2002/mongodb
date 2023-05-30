@@ -1,0 +1,176 @@
+create docker containers
+docker-compose -f  docker-compose.yaml up
+or
+docker compose up
+
+DOCKER BASED MONGODB
+connect to the docker container bash
+docker exec -it 5c5f35859dea bash
+
+
+login using mongo shell
+mongosh mongodb://localhost:27017 -u rootuser -p rootpass
+
+url details for compass
+Connecting to:		mongodb://rootuser:rootpass@localhost:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.8.0
+Using MongoDB:		6.0.4
+Using Mongosh:		1.8.0
+
+show all methods
+db.help();
+
+show databases
+show dbs;
+
+create new database
+use amigoscode;
+
+it wont show up if theres no collection
+
+create table(collection)
+db.createCollection("TBL_USER");
+or
+db.createCollection("person", { capped: true, size: 6142800, max: 300 }
+
+display table in a database
+show collections
+
+check table stats
+db.person.stats()
+
+delete a table or collection
+db.person.drop()
+
+delete a database
+db.dropDatabase();
+
+show other database commands
+db.help();
+
+check count in student table
+db.student.count()
+db.student.countDocuments()
+
+get the first id value in the table
+db.student.find({}, {_id: 1}).pretty()
+
+this will get the timestamp that it was created
+ObjectId("646eed2ed0dea9736cc2732e").getTimestamp()
+
+insert a student record
+db.student.insert(student)
+db.student.insertOne(student)
+
+get all student records
+db.student.find()
+db.student.find().pretty()
+
+sample document
+```
+student = {
+    "firstName": "Retha",
+    "lastName": "Killeen",
+    "email": "rkilleen0@mysql.com",
+    "gender": "F",
+    "country": "Philippines",
+    "isStudentActive": false,
+    "favouriteSubjects": [
+        "maths",
+        "english",
+        "it"
+    ],
+    "totalSpentInBooks": 0.00
+}
+```
+
+
+
+how to insert many student records into a table
+db.student.insertMany(students)
+
+or
+
+insert student record manually
+db.student.insert({name: "sholly"})
+
+or
+db.student.insertMany([{}])
+
+get a record by the name with project of one
+db.TBL_USER.find({firstName: "Retha"})
+
+or
+
+db.TBL_USER.find({firstName: "Retha"}, {firstName: 1})
+
+this will exclude the following fields
+db.TBL_USER.find({firstName: "Retha"}, {firstName: 0, lastName:0})
+
+using equals query operator 
+db.TBL_STUDENT.find({totalSpentInBooks: {$eq: 165}}).pretty()
+
+
+using not equals query operator
+db.TBL_STUDENT.find({totalSpentInBooks: {$ene 165}}).pretty()
+
+include 1
+db.TBL_STUDENT.find({totalSpentInBooks: {$ne: 165}}, {firstName: 1}).pretty()
+
+db.TBL_STUDENT.find({totalSpentInBooks: {$gt: 165}}, {firstName: 1}).pretty()
+
+searching via an array 
+db.TBL_STUDENT.find({favouriteSubjects: {$all ["it"]}}, {favouriteSubjects: 1}).pretty()
+
+using in array
+db.TBL_STUDENT.find({favouriteSubjects: {$in ["it"]}}, {favouriteSubjects: 1}).pretty()
+
+using not in
+db.TBL_STUDENT.find({favouriteSubjects: {$nin ["it", "maths "]}}, {favouriteSubjects: 1}).pretty()
+
+updating a field value
+db.TBL_STUDENT.update({_id: ObjectId("34355354222442')}, {$set: {firstName: "Maria"}})
+
+removing a column 
+db.TBL_STUDENT.update({_id: ObjectId("34355354222442')}, {$unset: {lastName: 1}})
+
+incrementing number values
+db.TBL_STUDENT.update({_id: ObjectId("34355354222442')}, {$inc: {lastName: 100}})
+test it
+db.TBL_STUDENT.find({}, {totalSpentInBooks: 1}).pretty()
+
+remove an item from an array
+db.TBL_STUDENT.update({_id: ObjectId("34355354222442')}, {$pull: {favouriteSubject:  "it"}})
+
+push an item into an array
+db.TBL_STUDENT.update({_id: ObjectId("34355354222442')}, {$push: {favouriteSubject:  "computer science"}})
+
+delete a document
+db.TBL_STUDENT.deleteOne({_id: ObjectId("34355354222442')})
+
+this command with keep on deleting documents
+db.TBL_STUDENT.deleteOne({})
+
+will delete items with gender as Male
+db.student.deleteMany({gender: "M"})
+
+this will delete all documents
+db.student.deleteMany({})
+
+it will manually iterate through the student collection
+NB: at the end of the collection hasNext() will return false
+NB: find() function only gives you 20 items back
+cursor.next()
+
+will display the first 5 records
+db.TBL_STUDENT.find({}, {firstName: 1, country: 1}).pretty().limit(5)
+
+will skip the first document
+db.TBL_STUDENT.find({}, {firstName: 1, country: 1}).pretty().limit(5).skip(1)
+
+db.TBL_STUDENT.find({}, {firstName: 1, country: 1}).pretty().limit(5).sort({firstName: 1})
+
+document = row collection = table
+-documents are stored in BSON format(binary JSON format)
+
+QUERY DOCUMENTATION
+https://docs.mongodb.com/manual/reference/operator/query/
