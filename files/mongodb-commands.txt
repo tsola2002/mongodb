@@ -141,6 +141,18 @@ db.TBL_STUDENT.find({}, {totalSpentInBooks: 1}).pretty()
 remove an item from an array
 db.TBL_STUDENT.update({_id: ObjectId("34355354222442')}, {$pull: {favouriteSubject:  "it"}})
 
+adding a new array field
+db.TBL_STUDENT.findOneAndUpdate({_id: ObjectId("64789217d25451fd7c53d29f")}, {$set: {"leastFavouriteSubject": ["Biology"]}})
+
+using a sort function
+db.TBL_STUDENT.findOneAndUpdate({_id: ObjectId("64789217d25451fd7c53d29f")}, {$push: {"leastFavouriteSubject": {$each :["MongoDB2", "JSP2" ], $sort: 1 }}})
+
+remove multiple array fields
+db.TBL_STUDENT.findOneAndUpdate({_id: ObjectId("64789217d25451fd7c53d29f")}, {$pullAll: {"favouriteSubjects": ["MongoDB", "JSP" ] }}, {"returnNewDocument": true})
+
+adding mutiple items to an array
+db.TBL_STUDENT.findOneAndUpdate({_id: ObjectId("64789217d25451fd7c53d29f")}, {$push: {"leastFavouriteSubject": {$each :["Criminology", "Botany" ]}}})
+
 push an item into an array
 db.TBL_STUDENT.update({_id: ObjectId("34355354222442')}, {$push: {favouriteSubject:  "computer science"}})
 
@@ -160,6 +172,11 @@ it will manually iterate through the student collection
 NB: at the end of the collection hasNext() will return false
 NB: find() function only gives you 20 items back
 cursor.next()
+
+using the foreach statement
+db.TBL_STUDENT.find().forEach(function(student) {print(student._id)})
+
+db.TBL_STUDENT.find().forEach(function(student) {print("Gender - " + student.gender)})
 
 will display the first 5 records
 db.TBL_STUDENT.find({}, {firstName: 1, country: 1}).pretty().limit(5)
