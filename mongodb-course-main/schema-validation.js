@@ -1,4 +1,4 @@
-db.createCollection("student_with_validation", {
+db.createCollection("TBL_STUDENT_SCHEMA", {
     validator: {
         $jsonSchema: {
             bsonType: "object",

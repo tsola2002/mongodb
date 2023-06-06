@@ -25,7 +25,7 @@ student2 = {
     "firstName": "omatsola",
     "lastName": "sobotie",
     "age": 30,
-    "email": "rkillgheen0@mysql.com",
+    "email": "shola@amigoscode.com",
     "gender": "F",
     "country": "Philippines",
     "isStudentActive": true,
@@ -34,7 +34,7 @@ student2 = {
         "english",
         "it"
     ],
-    "totalSpentInBooks": 0.00
+    "totalSpentInBooks": 5.65
 }
 
 students = [
